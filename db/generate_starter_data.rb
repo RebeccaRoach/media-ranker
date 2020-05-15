@@ -12,7 +12,7 @@ require "csv"
 
 CSV.open("db/works_seeds.csv", "w", :write_headers => true,
                                     :headers => ["category", "title", "creator", "publication_year", "description"]) do |csv|
-  25.times do
+  36.times do
     category = %w(album book).sample
     title = Faker::Coffee.blend_name
     creator = Faker::Name.name
