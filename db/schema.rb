@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_174853) do
   enable_extension "plpgsql"
 
   create_table "works", force: :cascade do |t|
-    t.string "category"
+    t.string "category", default: "album"
     t.string "title"
     t.string "creator"
     t.date "publication_year"
