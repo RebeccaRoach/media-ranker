@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   resources :works
   # validates :title, presence: true
 
-  resources :users, only: [:index, :create, :show]
-	# validates :name, presence: true, uniqueness: true
+  resources :users, only: [:index, :show]
+  # validates :name, presence: true, uniqueness: true
+  
+  # will create the user for us
+  resources :sessions, only:[:create, :delete]
 
   resources :votes, only: [:index, :create]
 
