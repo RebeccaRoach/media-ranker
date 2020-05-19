@@ -6,8 +6,19 @@ class WorksController < ApplicationController
     @works = Work.all
   end
 
-  # GET /works/1
   def show
+    @work = Work.find(params[:id])
+
+    # need to be able to return all the users who voted for single work
+    # ordered by most recently voted on that work
+
+    @users = []
+    @work.votes.each do |vote|
+      user = vote.user
+      @users << user
+    end
+
+    return [@work, @users]
   end
 
   # GET /works/new
@@ -41,8 +52,16 @@ class WorksController < ApplicationController
 
   # DELETE /works/1
   def destroy
+    @work = Work.find(params[:id])
+    if @work.nil?
+      redirect_to root_path, notice: 'Work not found'
+      return
+    end
+
     @work.destroy
-    head :no_content
+    redirect_to root_path
+    flash[:success] = "Successfully destroyed #{@work.category} #{@work.id}"
+    return
   end
 
   private
