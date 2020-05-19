@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   # validates :name, presence: true, uniqueness: true
   
-  # will create the user for us
+  # will create the user
   resources :sessions, only:[:create, :delete]
 
   resources :votes, only: [:index, :create]
