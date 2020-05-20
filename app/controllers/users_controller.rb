@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find(params[:id])
+    @user = User.find_by(user_name: params[:user][:user_name])
 
     if @user.nil?
       # new user
@@ -15,16 +15,24 @@ class UsersController < ApplicationController
         redirect_to root_path
         return
       end
-      flash[:welcome] = "Welcome #{@user.user_name}!"
+      flash[:success] = "Welcome #{@user.user_name}!"
     else
       # existing user
-      flash[:welcome] = "Successfully logged in as existing user #{@user.user_name}"
+      flash[:success] = "Successfully logged in as existing user #{@user.user_name}"
     end
 
     # finally, set the session id for the new or existing user
     session[:user_id] = @user.id
     redirect_to root_path
   end
+
+  # def logout
+  #   if session[:user_id]
+
+  #   else
+
+  #   end
+  # end
 
   def index
     @users = User.order(created_at: :asc).all
