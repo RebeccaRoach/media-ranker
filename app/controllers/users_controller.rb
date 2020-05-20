@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def login
+    
     @user = User.find_by(user_name: params[:user][:user_name])
 
     if @user.nil?
