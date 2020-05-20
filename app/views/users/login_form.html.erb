@@ -3,8 +3,8 @@
   <%= form_with model: @user, url: login_path do |f| %>
     <input name="utf8" type="hidden" value="✓">
     <div class="form-group">
-      <%= f.label :username %>
-      <%= f.text_field :username, class: "form-control" %>
+      <%= f.label :user_name %>
+      <%= f.text_field :user_name, class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.submit "Log in", class: "btn btn-primary" %>
