@@ -26,13 +26,22 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # def logout
-  #   if session[:user_id]
-
-  #   else
-
-  #   end
-  # end
+  def logout
+    if session[:user_id]
+      user = User.find_by(id: session[:user_id])
+      unless user.nil?
+        session[:user_id] = nil
+        # eventually change to text: "Successfully logged out"
+        flash[:notice] = "Goodbye, #{user.user_name}"
+      else
+        session[:user_id] = nil
+        flash[:notice] = "Error: unknown user"
+      end
+    else
+      flash[:error] = "You must be logged in to logout."
+    end
+    redirect_to root_path
+  end
 
   def index
     @users = User.order(created_at: :asc).all
