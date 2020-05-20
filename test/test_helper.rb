@@ -18,4 +18,16 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+    def login(user_name = "Tina Hastings")
+      user_hash = {
+        user: {
+          user_name: user_name
+        }
+      }
+
+      post login_path, params: user_hash
+      user = User.find_by(user_name: user_name)
+      return user
+    end
 end
