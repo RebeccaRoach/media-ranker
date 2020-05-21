@@ -1,1 +1,11 @@
-<h2>WOAH ITS A MEDIA RANKER YALL</h2>
+<main>
+  <section>
+    <h3>SPOTLIGHT HERE</h3>
+  </section>
+  <hr class="root__hr">
+  <section class="top-ten__container">
+    <%= render partial: '/works/top_media', locals: { category: 'album' } %>
+    <%= render partial: '/works/top_media', locals: { category: 'book' } %>
+    <%= render partial: '/works/top_media', locals: { category: 'movie' } %>
+  </section>
+</main>
