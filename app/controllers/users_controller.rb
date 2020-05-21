@@ -32,11 +32,10 @@ class UsersController < ApplicationController
       user = User.find_by(id: session[:user_id])
       unless user.nil?
         session[:user_id] = nil
-        # eventually change to text: "Successfully logged out"
-        flash[:notice] = "Goodbye, #{user.user_name}"
+        flash[:success] = "Successfully logged out"
       else
         session[:user_id] = nil
-        flash[:notice] = "Error: unknown user"
+        flash[:success] = "Error: unknown user"
       end
     else
       flash[:error] = "You must be logged in to logout."
