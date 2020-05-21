@@ -1,6 +1,6 @@
 <main>
-  <section>
-    <h3>SPOTLIGHT HERE</h3>
+  <section class= "spotlight">
+    <%= render partial: '/works/spotlight', locals: { spotlight: Work.spotlight } %>
   </section>
   <hr class="root__hr">
   <section class="top-ten__container">

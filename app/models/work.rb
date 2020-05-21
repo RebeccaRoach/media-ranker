@@ -33,15 +33,15 @@ class Work < ApplicationRecord
   end
 
 
-  def self.spotlight(category_name)
+  def self.spotlight
     # return single top work based on number of votes
     # or for tie, return the most recently upvoted work
-    top_10 = self.top_ten(category_name)
+    all_works = Work.all
 
     max_votes = 0
     ties = []
 
-    top_10.each do |work|
+    all_works.each do |work|
       if work.votes.count == max_votes
         ties << work
       elsif work.votes.count > max_votes
