@@ -1,9 +1,14 @@
 class WorksController < ApplicationController
   before_action :set_work, only: [:show, :edit, :update, :destroy]
 
-  # GET /works
   def index
+    # DOES THIS APPLY AT ALL????
+    # show all works by max votes and descending
+    # if a tie, most recent voted goes first
     @works = Work.all
+
+    @works = @works.min_by {|work| work.votes.count}
+    return @works
   end
 
   def show
@@ -21,36 +26,33 @@ class WorksController < ApplicationController
     return [@work, @users]
   end
 
-  # GET /works/new
   def new
     @work = Work.new
   end
 
-  # GET /works/1/edit
   def edit
   end
 
-  # POST /works
   def create
     @work = Work.new(work_params)
 
     if @work.save
-      redirect_to @work, notice: 'Work was successfully created.'
+      flash[:sucess] = "Successfully created #{@work.category} #{@work.id}"
+      redirect_to @work
     else
       render :new
     end
   end
 
-  # PATCH/PUT /works/1
   def update
     if @work.update(work_params)
-      redirect_to @work, notice: 'Work was successfully updated.'
+      flash[:success] = "Successfully updated #{@work.category} #{@work.id}"
+      redirect_to @work
     else
       render :edit
     end
   end
 
-  # DELETE /works/1
   def destroy
     @work = Work.find(params[:id])
     if @work.nil?

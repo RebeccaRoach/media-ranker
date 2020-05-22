@@ -5,10 +5,14 @@ class Work < ApplicationRecord
 
   # has_many :users, through: :votes
 
-  # class method to sort by max votes
 
   def self.get_category(category_name)
-    return self.where(category: category_name)
+
+    num_category_works = self.where(category: category_name).count
+
+    return self.where(category: category_name).max_by(num_category_works) {
+      |work| work.votes.count
+    }
   end
 
   def self.top_ten(category_name)
@@ -18,7 +22,6 @@ class Work < ApplicationRecord
       |work| work.votes.count
     }
   end
-
 
   def most_recent_vote_date
     # returns most recent created_at date of votes
