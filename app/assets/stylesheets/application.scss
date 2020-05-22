@@ -18,3 +18,14 @@
 .hide-logout-btn {
   visibility: hidden;
 }
+
+// .ribbon::after {
+//   content: "This is a fancy orange box.";
+//   background-color: #FFBA10;
+//   border-color: black;
+//   border-style: dotted;
+// }
+
+.spotlight__header--prefix::after {
+  content: ":";
+}
