@@ -70,19 +70,19 @@ class WorksController < ApplicationController
     # ^^ equivalent to: user_id = session[:user_id] ???
     if user.nil?
       # might need new structure below:
-      flash.now[:error] = "A problem occurred: You must log in to do that"
-      redirect_to works_path(params[:id])
+      flash[:error] = "A problem occurred: You must log in to do that"
+      redirect_to work_path(params[:id])
       return
     end
     # create a new vote for this user, for this work
     vote = Vote.new(user_id: user.id, work_id: params[:id])
 
     if vote.save
-      flash.now[:success] = "Successfully upvoted!"
-      redirect_to works_path(params[:id])
+      flash[:success] = "Successfully upvoted!"
+      redirect_to work_path(params[:id])
     else
-      flash.now[:error] = "There was an error for some reason!!"
-      redirect_to works_path(params[:id])
+      flash[:error] = "There was an error for some reason!!"
+      redirect_to work_path(params[:id])
     end
   end
 
