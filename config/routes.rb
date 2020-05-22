@@ -13,10 +13,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :new]
   # validates :name, presence: true, uniqueness: true
  
-  # will create the user
-  # resources :sessions, only:[:create, :delete]
-
-  resources :votes, only: [:index, :create]
+  # NOT SURE if this is the right path for upvote:
+  resources :votes, only: [:new, :create, :destroy]
+  get '/upvote', to: 'votes#upvote', as: "upvote"
 
   get '/homepages', to: 'homepages#index', as: 'homepages'
   root to: 'homepages#index'
