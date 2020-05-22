@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    
     @user = User.find_by(user_name: params[:user][:user_name])
 
     if @user.nil?
@@ -41,6 +40,17 @@ class UsersController < ApplicationController
       flash[:error] = "You must be logged in to logout."
     end
     redirect_to root_path
+  end
+
+  def current
+    @user = User.find_by(id: session[:user_id])
+
+    if @user.nil?
+      flash[:error] = "You must be logged in...."
+      # change these lines:::
+      redirect_to root_path
+      return
+    end
   end
 
   def index
