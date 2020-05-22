@@ -1,25 +1,46 @@
-<section class="media-table">
-  <h4><%= category.capitalize %>s</h4>
-  <table class="table">
-    <thead>
-      <tr>
-        <th width="80">Votes</th>
-        <th>Title</th>
-        <th>Created By</th>
-        <th width="100">Published</th>
-        <th width="100">Upvote</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% Work.get_category(category).each do |work| %>
-        <tr>
-          <td><%= work.votes.count %></td>
-          <td><%= link_to work.title, work_path(work.id) %></td>
-          <td><%= work.creator %></td>
-          <td><%= work.publication_year %></td>
-          <td><%= link_to 'Upvote', upvote_path(work.id), method: :post, class: "btn btn-primary" %></td>
-        </tr>
+<section>
+  <%= form_with model: @work do |f| %>
+
+    <%# adding validation error messages on top if any %>
+    <% if @work.errors.any? %>
+      <ul>
+      <% @work.errors.each do |column, message| %>
+        <li>
+          <p><%= column %> <%= message %></p>
+        </li>  
       <% end %>
-    </tbody>
-  </table>
+      </ul>
+    <% end %>
+
+    <form>
+      <input name="utf8" type="hidden" value="✓">
+      <div class='form-group'>
+        <%= f.label :category %>
+        <%= f.select :category,
+          options_for_select(["album", "book", "movie"]),
+          {},
+          {class: "form-control"}
+        %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :creator %>
+        <%= f.text_field :creator, class: "form-control"%>
+      </div>
+      <div class='form-group'>
+        <%= f.label :publication_year %>
+        <%= f.text_field :publication_year, class: "form-control" %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class='form-group'>
+        <%= f.submit action_name, class: 'btn btn-primary' %>
+      </div>
+    </form>
+  <% end %>
 </section>

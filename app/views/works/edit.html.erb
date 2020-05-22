@@ -1,6 +1,2 @@
-<h1>Editing Work</h1>
-
-<%= render 'form', work: @work %>
-
-<%= link_to 'Show', @work %> |
-<%= link_to 'Back', works_path %>
+<h2>Edit This <%= @work.category.capitalize %></h2>
+<%= render partial: 'form', locals: { action_name: 'Update Work' } %>
