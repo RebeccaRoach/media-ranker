@@ -1,5 +1,7 @@
 class Work < ApplicationRecord
   has_many :votes
+  
+  validates :title, presence: true
 
   # has_many :users, through: :votes
 

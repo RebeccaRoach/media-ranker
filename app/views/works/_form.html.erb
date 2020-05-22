@@ -17,7 +17,7 @@
           <td><%= link_to work.title, work_path(work.id) %></td>
           <td><%= work.creator %></td>
           <td><%= work.publication_year %></td>
-          <td><%= link_to 'Upvote', root_path, class: "btn btn-primary" %></td>
+          <td><%= link_to 'Upvote', upvote_path(work.id), method: :post, class: "btn btn-primary" %></td>
         </tr>
       <% end %>
     </tbody>

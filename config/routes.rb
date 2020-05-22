@@ -7,15 +7,13 @@ Rails.application.routes.draw do
   get '/users/current', to: "users#current", as: "current_user"
 
   resources :works
-  # validates :title, presence: true
+  post '/works/id/upvote', to: 'works#upvote', as: "upvote"
 
-  # add create and new to user resources since not doing session controller approach?
   resources :users, only: [:index, :show, :create, :new]
   # validates :name, presence: true, uniqueness: true
  
   # NOT SURE if this is the right path for upvote:
-  resources :votes, only: [:new, :create, :destroy]
-  get '/upvote', to: 'votes#upvote', as: "upvote"
+  # resources :votes, only: [:new, :create, :destroy]
 
   get '/homepages', to: 'homepages#index', as: 'homepages'
   root to: 'homepages#index'
