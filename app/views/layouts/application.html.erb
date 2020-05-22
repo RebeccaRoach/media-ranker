@@ -34,18 +34,25 @@
       </ul>
       <ul class="nav app-header__user-nav-container">
 
-        <li class="nav-item app-header__nav_item">
-          <a class="btn btn-primary" href="/login">Log In</a>
-        </li>
+        <%# Can this be refactored to user current_user action and ternary?? %>
+        <% if session[:user_id] %>
+          <% user = User.find_by(id: session[:user_id]) %>
+          <li>
+            <a class="btn btn-primary" href="/users/<%= user.id %>">Logged in as <%= user.user_name %></a>
+          </li>
+        <% else %>
+          <li class="nav-item app-header__nav_item">
+            <a class="btn btn-primary" href="/login">Log In</a>
+          </li>
+        <% end %>
 
-        <%# ONLY SHOW LOGOUT BUTTON IF USER IS LOGGED IN: %>
+        <%# Only display logout button if user is logged in: %>
         <% if session[:user_id] %>
           <li>
             <a class="btn btn-primary" rel="nofollow" data-method="post" href="/logout">Log Out</a>
           </li>
         <% end %>
-      
-      
+        
       </ul>
     </nav>
   </header>
