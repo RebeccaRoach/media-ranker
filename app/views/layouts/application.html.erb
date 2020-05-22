@@ -38,6 +38,7 @@
         <% if session[:user_id] %>
           <% user = User.find_by(id: session[:user_id]) %>
           <li>
+            <%# <%= link_to "Logged in as" user.user_name, root_path***, class: "btn btn-primary" %> 
             <a class="btn btn-primary" href="/users/<%= user.id %>">Logged in as <%= user.user_name %></a>
           </li>
         <% else %>
@@ -52,17 +53,36 @@
             <a class="btn btn-primary" rel="nofollow" data-method="post" href="/logout">Log Out</a>
           </li>
         <% end %>
-        
+
       </ul>
     </nav>
   </header>
 
-    <section class="flash">
-      <% flash.each do |name, message| %>
-        <div class="<%= name %>"><%= message %></div>
+    <section class="alert__container">
+      <% flash.each do |type, message| %>
+        <% type = type.to_sym %>
+        <% if type != :error_messages %>
+          <div class='alert <%= flash_class(type) %>'>
+            <%= content_tag(:span, message) %>
+
+            <% if type == :error && 
+              flash[:error_messages] && flash[:error_messages].any? %>
+              <ul>
+                <% flash[:error_messages].each do | column, message| %>
+                  <li><%= column %>: <%= message.join(", ") %></li>  
+                  <%# since we currently only allow one reason/ li to be displayed, we end loop early %>
+                  <%# delete break if allowing multiple errors, like if title AND creator can't be blank %>
+                  <% break %>
+                <% end %>
+              </ul>
+            <% end %>
+
+          </div>
+        <% end %>
       <% end %>
     </section>
 
     <%= yield %>
+    
   </body>
 </html>

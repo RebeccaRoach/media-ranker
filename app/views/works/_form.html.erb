@@ -1,17 +1,6 @@
 <section>
   <%= form_with model: @work do |f| %>
 
-    <%# adding validation error messages on top if any %>
-    <% if @work.errors.any? %>
-      <ul>
-      <% @work.errors.each do |column, message| %>
-        <li>
-          <p><%= column %> <%= message %></p>
-        </li>  
-      <% end %>
-      </ul>
-    <% end %>
-
     <form>
       <input name="utf8" type="hidden" value="✓">
       <div class='form-group'>

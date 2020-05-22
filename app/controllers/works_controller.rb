@@ -2,13 +2,13 @@ class WorksController < ApplicationController
   before_action :set_work, only: [:show, :edit, :update, :destroy]
 
   def index
-    # DOES THIS APPLY AT ALL????
     # show all works by max votes and descending
     # if a tie, most recent voted goes first
-    @works = Work.all
-
-    @works = @works.min_by {|work| work.votes.count}
-    return @works
+    
+    @books = Work.get_category("book")
+    @movies = Work.get_category("movie")
+    @albums = Work.get_category("album")
+   
   end
 
   def show
@@ -23,6 +23,7 @@ class WorksController < ApplicationController
       @users << user
     end
 
+    # check if i need this return
     return [@work, @users]
   end
 
@@ -37,9 +38,11 @@ class WorksController < ApplicationController
     @work = Work.new(work_params)
 
     if @work.save
-      flash[:sucess] = "Successfully created #{@work.category} #{@work.id}"
+      flash[:success] = "Successfully created #{@work.category} #{@work.id}"
       redirect_to @work
     else
+      flash[:error] = "A problem occurred: Could not create #{@work.category}"
+      flash[:error_messages] = @work.errors.messages
       render :new
     end
   end
@@ -49,6 +52,8 @@ class WorksController < ApplicationController
       flash[:success] = "Successfully updated #{@work.category} #{@work.id}"
       redirect_to @work
     else
+      flash[:error] = "A problem occurred: Could not update #{@work.category}"
+      flash[:error_messages] = @work.errors.messages
       render :edit
     end
   end
@@ -85,7 +90,9 @@ class WorksController < ApplicationController
       flash[:success] = "Successfully upvoted!"
       redirect_to work_path(params[:id])
     else
-      flash[:error] = "A problem occurred: Could not upvote::::: user: has already voted for this work"
+
+      flash[:error] = "A problem occurred: Could not upvote"
+      flash[:error_messages] = vote.errors.messages
       redirect_to work_path(params[:id])
     end
   end
