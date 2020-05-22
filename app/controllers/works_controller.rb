@@ -68,6 +68,8 @@ class WorksController < ApplicationController
     # get user_id from session
     user = User.find_by(id: session[:user_id])
     # ^^ equivalent to: user_id = session[:user_id] ???
+
+    # call User#current here
     if user.nil?
       # might need new structure below:
       flash[:error] = "A problem occurred: You must log in to do that"
@@ -81,7 +83,7 @@ class WorksController < ApplicationController
       flash[:success] = "Successfully upvoted!"
       redirect_to work_path(params[:id])
     else
-      flash[:error] = "There was an error for some reason!!"
+      flash[:error] = "A problem occurred: Could not upvote::::: user: has already voted for this work"
       redirect_to work_path(params[:id])
     end
   end

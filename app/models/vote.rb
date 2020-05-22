@@ -2,5 +2,5 @@ class Vote < ApplicationRecord
   belongs_to :work
   belongs_to :user
 
-  # validations here
+  validates_uniqueness_of :user_id, scope: :work_id
 end
