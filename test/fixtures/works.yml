@@ -1,0 +1,34 @@
+book_1:
+  category: 'book'
+  title: 'Little Women'
+  creator: 'Louisa May Alcott'
+  publication_year: 1868
+  description: 'A best-selling novel about girls growing up.'
+
+book_2:
+  category: 'book'
+  title: 'The Pendulum'
+  creator: 'Julie Lindahl'
+  publication_year: 2019
+  description: 'This gripping memoir traces Brazilian-born American Julie Lindahl’s journey to uncover her grandparents’ roles in the Third Reich as she is driven to understand how and why they became members of Hitler’s elite, the SS.'
+
+book_3:
+  category: 'book'
+  title: 'Little Fires Everywhere'
+  creator: 'Celeste Ng'
+  publication_year: 2017
+  description: 'Taking place in Shaker Heights, Ohio where Ng grew up, the novel is about two families living in 1990s Shaker Heights who are brought together through their children.'
+
+album_1:
+  category: 'album'
+  title: 'Meta Meta Etc.'
+  creator: 'Brick + Mortar'
+  publication_year: 2018
+  description: 'Groovy tunes by an indie rock duo from New Jersey.'
+
+movie_1:
+  category: 'movie'
+  title: 'White Christmas'
+  creator: 'Michael Curtiz'
+  publication_year: 1954
+  description: 'A successful song-and-dance team become romantically involved with a sister act and team up to save the failing Vermont inn of their former commanding general.'
