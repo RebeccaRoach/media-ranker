@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Work.get_category(category).each do |work| %>
+      <% works.each do |work| %>
         <tr>
           <td><%= work.votes.count %></td>
           <td><%= link_to work.title, work_path(work.id) %></td>
