@@ -26,9 +26,79 @@ album_1:
   publication_year: 2018
   description: 'Groovy tunes by an indie rock duo from New Jersey.'
 
-movie_1:
-  category: 'movie'
-  title: 'White Christmas'
-  creator: 'Michael Curtiz'
-  publication_year: 1954
-  description: 'A successful song-and-dance team become romantically involved with a sister act and team up to save the failing Vermont inn of their former commanding general.'
+album_2:
+  category: 'album'
+  title: 'Heartbreaker'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_3:
+  category: 'album'
+  title: 'TESTTITLE'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_4:
+  category: 'album'
+  title: 'TESTTITLE1'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_5:
+  category: 'album'
+  title: 'TESTTITLE2'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_6:
+  category: 'album'
+  title: 'TESTTITLE3'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_7:
+  category: 'album'
+  title: 'TESTTITLE4'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_8:
+  category: 'album'
+  title: 'TESTTITLE5'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_9:
+  category: 'album'
+  title: 'TESTTITLE6'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_10:
+  category: 'album'
+  title: 'TESTTITLE7'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+album_11:
+  category: 'album'
+  title: 'TESTTITLE8'
+  creator: 'Stone Cold Fox'
+  publication_year: 1973
+  description: 'What being ahead of your time sounds like.'
+
+# movie_1:
+#   category: 'movie'
+#   title: 'White Christmas'
+#   creator: 'Michael Curtiz'
+#   publication_year: 1954
+#   description: 'A successful song-and-dance team become romantically involved with a sister act and team up to save the failing Vermont inn of their former commanding general.'

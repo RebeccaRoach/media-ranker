@@ -1,5 +1,5 @@
 class Work < ApplicationRecord
-  has_many :votes
+  has_many :votes, dependent: :destroy
   
   validates :title, presence: true
 
@@ -7,6 +7,8 @@ class Work < ApplicationRecord
 
 
   def self.get_category(category_name)
+    valid_categories = ["album", "book", "movie"]
+    return nil if !valid_categories.include?(category_name)
 
     num_category_works = self.where(category: category_name).count
 
@@ -25,7 +27,10 @@ class Work < ApplicationRecord
 
   def most_recent_vote_date
     # returns most recent created_at date of votes
+
     votes = self.votes
+    return nil if votes.count == 0
+
     most_recent_date = Date.new(1965,5,20)
 
     votes.each do |vote|

@@ -13,7 +13,70 @@ vote_3:
 vote_4:
   work: book_2
   user: owen
+  created_at: Sun, 17 May 2020 23:21:36 UTC +00:00
 
 vote_5:
-  work: movie_1
+  work: book_2
   user: edgar
+  created_at: Fri, 22 May 2020 23:24:42 UTC +00:00,
+
+# album votes for top 10 method tests
+vote_6:
+  work: album_1
+  user: edgar
+
+vote_7:
+  work: album_2
+  user: edgar
+
+vote_8:
+  work: album_3
+  user: edgar
+
+vote_9:
+  work: album_4
+  user: edgar
+
+vote_10:
+  work: album_5
+  user: edgar
+
+vote_11:
+  work: album_6
+  user: edgar
+
+vote_12:
+  work: album_7
+  user: edgar
+
+vote_13:
+  work: album_8
+  user: edgar
+
+vote_14:
+  work: album_9
+  user: edgar
+
+vote_15:
+  work: album_10
+  user: edgar
+
+vote_16:
+  work: album_2
+  user: helen
+
+vote_17:
+  work: album_2
+  user: owen
+
+vote_18:
+  work: album_3
+  user: helen
+
+vote_19:
+  work: album_4
+  user: helen
+
+vote_20:
+  work: album_5
+  user: helen
