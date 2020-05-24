@@ -1,6 +1,13 @@
 require "test_helper"
 
 describe Work do
+
+  it "can be instantiated successfully" do
+    work = Work.create!(title: "Awesome Work Title")
+  
+    expect(work.valid?).must_equal true
+  end
+
   describe 'validations' do
     before do
       @book1 = works(:book_1)
@@ -198,7 +205,7 @@ describe Work do
       vote_1.created_at = "Fri, 22 May 2020 04:56:05 UTC +00:00"
       puts "VOTE CREATED AT: ::::::::: #{vote_1.created_at}"
       # puts "########"
-      
+
       # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_7).created_at}"
       # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_16).created_at}"
       # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_17).created_at}"
