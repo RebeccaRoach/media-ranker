@@ -1,0 +1,19 @@
+vote_1:
+  work: book_1
+  user: helen
+
+vote_2:
+  work: book_1
+  user: edgar
+  
+vote_3:
+  work: book_1
+  user: owen
+
+vote_4:
+  work: book_2
+  user: owen
+
+vote_5:
+  work: movie_1
+  user: edgar
