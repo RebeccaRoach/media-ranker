@@ -1,8 +1,6 @@
-<main>
-  <h2>List of Works</h2>
-  <%= render partial: 'work_table', locals: { works: @albums, category: 'album' } %>
-  <%= render partial: 'work_table', locals: { works: @books, category: 'book' } %>
-  <%= render partial: 'work_table', locals: { works: @movies, category: 'movie' } %>
-  <%= link_to 'View top media', root_path, class: "btn btn-secondary" %>
-  <%= link_to 'Add a new work', new_work_path, class: "btn btn-primary" %>
-</main>
+<h2>List of Works</h2>
+<%= render partial: 'work_table', locals: { works: @albums, category: 'album' } %>
+<%= render partial: 'work_table', locals: { works: @books, category: 'book' } %>
+<%= render partial: 'work_table', locals: { works: @movies, category: 'movie' } %>
+<%= link_to 'View top media', root_path, class: "btn btn-secondary" %>
+<%= link_to 'Add a new work', new_work_path, class: "btn btn-primary" %>
