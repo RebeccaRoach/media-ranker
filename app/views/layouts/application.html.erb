@@ -8,7 +8,6 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Gudea:400,700|Hammersmith+One">
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
   </head>
 
   <body>
@@ -18,77 +17,74 @@
         <small>Ranking the Best of Everything</small>
       </h1>
 
-    <nav class="app-header__nav">
-
-      <ul class="nav app-header__site-nav-container">
-        <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/">View top media</a>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/works">View all media</a>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/works/new">Add a new work</a>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/users">View all users</a>
-        </li>
-      </ul>
-
-      <ul class="nav app-header__site-nav-container">
-        <%# Can this be refactored to user current_user action and ternary?? %>
-        <% if session[:user_id] %>
-          <% user = User.find_by(id: session[:user_id]) %>
-          <li class="nav-item app-header__nav_item" id="btn1">
-            <%# <%= link_to "Logged in as" user.user_name, root_path***, class: "btn btn-primary" %> 
-            <a class="btn btn-primary" href="/users/<%= user.id %>">Logged in as <%= user.user_name %></a>
-          </li>
-        <% else %>
-          <li class="nav-item app-header__nav_item" id="btn2">
-            <a class="btn btn-primary" href="/login">Log In</a>
-          </li>
-        <% end %>
-
-        <%# Only display logout button if user is logged in: %>
-        <% if session[:user_id] %>
+      <nav class="app-header__nav">
+        <ul class="nav app-header__site-nav-container">
           <li class="nav-item app-header__nav_item">
-            <a class="btn btn-primary" rel="nofollow" data-method="post" href="/logout">Log Out</a>
+            <a class="nav-link" href="/">View top media</a>
           </li>
+          <li class="nav-item app-header__nav_item">
+            <a class="nav-link" href="/works">View all media</a>
+          </li>
+          <li class="nav-item app-header__nav_item">
+            <a class="nav-link" href="/works/new">Add a new work</a>
+          </li>
+          <li class="nav-item app-header__nav_item">
+            <a class="nav-link" href="/users">View all users</a>
+          </li>
+        </ul>
+
+        <ul class="nav app-header__site-nav-container">
+          <%# Can this be refactored to user current_user action and ternary?? %>
+          <% if session[:user_id] %>
+            <% user = User.find_by(id: session[:user_id]) %>
+            <li class="nav-item app-header__nav_item" id="btn1">
+              <%# <%= link_to "Logged in as" user.user_name, root_path***, class: "btn btn-primary" %> 
+              <a class="btn btn-primary" href="/users/<%= user.id %>">Logged in as <%= user.user_name %></a>
+            </li>
+          <% else %>
+            <li class="nav-item app-header__nav_item" id="btn2">
+              <a class="btn btn-primary" href="/login">Log In</a>
+            </li>
+          <% end %>
+
+          <%# Only display logout button if user is logged in: %>
+          <% if session[:user_id] %>
+            <li class="nav-item app-header__nav_item">
+              <a class="btn btn-primary" rel="nofollow" data-method="post" href="/logout">Log Out</a>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+
+    <% if flash.count > 0 %>
+      <section class="alert__container">
+        <% flash.each do |type, message| %>
+          <% type = type.to_sym %>
+          <% if type != :error_messages %>
+            <div class='alert <%= flash_class(type) %>'>
+              <%= content_tag(:span, message) %>
+
+              <% if type == :error && 
+                flash[:error_messages] && flash[:error_messages].any? %>
+                <ul>
+                  <% flash[:error_messages].each do | column, message| %>
+                    <li><%= column %>: <%= message.join(", ") %></li>  
+                    <%# since we currently only allow one reason/ li to be displayed, we end loop early %>
+                    <%# delete break if allowing multiple errors, like if title AND creator can't be blank %>
+                    <% break %>
+                  <% end %>
+                </ul>
+              <% end %>
+
+            </div>
+          <% end %>
         <% end %>
-      </ul>
-    </nav>
-  </header>
-
-  <%# CONDITIONALLY RENDER THIS SECTION DEPENDING ON IF THERES A FLASH?????? %>
-
-    <section class="alert__container">
-      <% flash.each do |type, message| %>
-        <% type = type.to_sym %>
-        <% if type != :error_messages %>
-          <div class='alert <%= flash_class(type) %>'>
-            <%= content_tag(:span, message) %>
-
-            <% if type == :error && 
-              flash[:error_messages] && flash[:error_messages].any? %>
-              <ul>
-                <% flash[:error_messages].each do | column, message| %>
-                  <li><%= column %>: <%= message.join(", ") %></li>  
-                  <%# since we currently only allow one reason/ li to be displayed, we end loop early %>
-                  <%# delete break if allowing multiple errors, like if title AND creator can't be blank %>
-                  <% break %>
-                <% end %>
-              </ul>
-            <% end %>
-
-          </div>
-        <% end %>
-      <% end %>
-    </section>
+      </section>
+    <% end %>
 
     <main>
-
       <%= yield %>
-
     </main>
   </body>
 </html>
