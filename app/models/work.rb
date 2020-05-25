@@ -2,6 +2,7 @@ class Work < ApplicationRecord
   has_many :votes, dependent: :destroy
   
   validates :title, presence: true
+  validates_uniqueness_of :title, scope: :category, message: "has already been taken"
 
   # has_many :users, through: :votes
 

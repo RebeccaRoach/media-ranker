@@ -3,7 +3,7 @@ require "test_helper"
 describe Work do
 
   it "can be instantiated successfully" do
-    work = Work.create!(title: "Awesome Work Title")
+    work = Work.create!(title: "Awesome Book Title", category: "book")
   
     expect(work.valid?).must_equal true
   end
@@ -19,12 +19,11 @@ describe Work do
       expect(result).must_equal true
     end
 
-    it 'is valid when not every field is present' do
+    it 'is valid when at least title and category is present' do
 
       some_field_params = {
         category: 'book',
-        title: 'A book with some title',
-        publication_year: 1995
+        title: 'A book with a random title'
       }
 
       book_some_fields = Work.new(some_field_params)
@@ -38,6 +37,23 @@ describe Work do
       expect(@book1.valid?).must_equal false
       expect(@book1.errors.messages).must_include :title
       expect(@book1.errors.messages[:title]).must_equal ["can't be blank"]
+    end
+
+    it 'is invalid when the title is already taken for a given category' do
+      previous_work_count = Work.all.count
+
+      duplicate_caterory_title_params = {
+        title: "Little Women",
+        category: "book"
+      }
+
+      attempt_duplicate = Work.new(duplicate_caterory_title_params)
+      result = attempt_duplicate.save
+
+      expect(result).must_equal false
+      expect(Work.all.count).must_equal previous_work_count
+      expect(attempt_duplicate.errors.messages).must_include :title
+      expect(attempt_duplicate.errors.messages[:title]).must_equal ["has already been taken"]
     end
   end
 

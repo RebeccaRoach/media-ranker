@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe Vote do
-
   describe 'relations' do
     before do 
       @user = users(:helen)
@@ -30,6 +29,7 @@ describe Vote do
   describe 'validations' do
     before do
       @vote_1 = votes(:vote_1)
+      @previous_vote_count = Vote.all.count
     end
 
     it 'is valid when all fields are present' do
@@ -50,45 +50,37 @@ describe Vote do
     end
   
     it "is not a valid vote if user/user_id is invalid" do
-      previous_vote_count = Vote.all.count
-      
       invalid_id = -1
       attempted_vote = Vote.new(user_id: invalid_id, work_id: 2)
       result = attempted_vote.save
   
       expect(result).must_equal false
-      expect(Vote.all.count).must_equal previous_vote_count
+      expect(Vote.all.count).must_equal @previous_vote_count
     end
 
     it "is not a valid vote if user/user_id is missing" do
-      previous_vote_count = Vote.all.count
-      
       attempted_vote = Vote.new(work_id: 2)
       result = attempted_vote.save
   
       expect(result).must_equal false
-      expect(Vote.all.count).must_equal previous_vote_count
+      expect(Vote.all.count).must_equal @previous_vote_count
     end
   
     it "is not a valid vote if work/work_id is invalid" do
-      previous_vote_count = Vote.all.count
-      
       invalid_id = -1
       attempted_vote = Vote.new(user_id: 1, work_id: invalid_id)
       result = attempted_vote.save
   
       expect(result).must_equal false
-      expect(Vote.all.count).must_equal previous_vote_count
+      expect(Vote.all.count).must_equal @previous_vote_count
     end
 
     it "is not a valid vote if work/work_id is missing" do
-      previous_vote_count = Vote.all.count
-      
       attempted_vote = Vote.new(user_id: 1)
       result = attempted_vote.save
   
       expect(result).must_equal false
-      expect(Vote.all.count).must_equal previous_vote_count
+      expect(Vote.all.count).must_equal @previous_vote_count
     end
 
     it "is invalid for a user to vote more than once on the same work" do
