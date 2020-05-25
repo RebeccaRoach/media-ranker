@@ -15,13 +15,12 @@ class UsersController < ApplicationController
         redirect_to root_path
         return
       end
-      flash[:success] = "Welcome #{@user.user_name}!"
     else
       # existing user
       flash[:success] = "Successfully logged in as existing user #{@user.user_name}"
     end
 
-    # finally, set the session id for the new or existing user
+    # set session id for new or existing user
     session[:user_id] = @user.id
     redirect_to root_path
   end
@@ -47,7 +46,7 @@ class UsersController < ApplicationController
 
     if @user.nil?
       flash[:error] = "You must be logged in...."
-      # change these lines:::
+      # change these lines???????
       redirect_to root_path
       return
     end
@@ -67,20 +66,18 @@ class UsersController < ApplicationController
       flash[:success] = "Successfully created new user #{params[:user][:user_name]} with ID #{@user.id}"
       redirect_to root_path
     end
-    # do something if save fails?
   end
 
   def show
-    # use find so it won't try to go to the user show view and throw error instead
     @user = User.find(params[:id])
 
-    # return @works so that we can easily access a user's voted works in the show view
     @works = []
     @user.votes.each do |vote|
       work = Work.find_by(id: vote.work_id)
       @works << work
     end
 
+    # need to return in array like this???
     return [@user, @works]
   end
 

@@ -36,6 +36,7 @@ vote_8:
 vote_9:
   work: album_4
   user: edgar
+  created_at: Sun, 17 May 2020 23:21:36 UTC +00:00
 
 vote_10:
   work: album_5
@@ -76,6 +77,7 @@ vote_18:
 vote_19:
   work: album_4
   user: helen
+  created_at: Sun, 17 May 2020 23:22:36 UTC +00:00
 
 vote_20:
   work: album_5

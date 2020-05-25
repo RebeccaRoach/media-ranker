@@ -19,7 +19,7 @@ describe Work do
       expect(result).must_equal true
     end
 
-    it 'is valid when at least title and category is present' do
+    it 'is valid when at least title and category fields are present' do
 
       some_field_params = {
         category: 'book',
@@ -37,6 +37,14 @@ describe Work do
       expect(@book1.valid?).must_equal false
       expect(@book1.errors.messages).must_include :title
       expect(@book1.errors.messages[:title]).must_equal ["can't be blank"]
+    end
+
+    it 'is invalid without a category' do
+      @book1.category = nil
+      
+      expect(@book1.valid?).must_equal false
+      expect(@book1.errors.messages).must_include :category
+      expect(@book1.errors.messages[:category]).must_equal ["can't be blank"]
     end
 
     it 'is invalid when the title is already taken for a given category' do
@@ -112,7 +120,6 @@ describe Work do
       expect(result[1]).must_equal works(:book_2)
       expect(result[1].votes.count).must_equal 2
 
-
       expect(result[2]).must_equal works(:book_3)
       expect(result[2].votes.count).must_equal 0
     end
@@ -143,7 +150,7 @@ describe Work do
       expect(top_albums.count).must_equal 10
     end
 
-    it "can get the top ten works of a certain category ordered from most to least votes" do
+    it "can get the top ten works of a 64565464565646certain category ordered from most to least votes" do
     #   # from fixtures expect order:
     #   # 2 with 3 votes, #3 with 2 votes, #4 with 2 votes, #5 with 2 votes, then 1 vote each for #1, #6, #7, #8, #9, #10
 
@@ -154,9 +161,11 @@ describe Work do
 
       expect(result[0]).must_equal works(:album_2)
       expect(result[0].votes.count).must_equal 3
+      puts "RESULT 0:::::::::: #{result[0]}"
 
       expect(result[1]).must_equal works(:album_3)
       expect(result[1].votes.count).must_equal 2
+      puts "RESULT 1:::::::::: #{result[1]}"
 
       expect(result[9].votes.count).must_equal 1
     end
@@ -193,11 +202,12 @@ describe Work do
       expect(result).must_equal votes(:vote_5).created_at
     end
 
-    it "returns nil if the work has no votes" do
+    it "returns an old dummy date if the work has no votes" do
+      dummy_date = Date.new(1965,5,20)
       no_vote_work = works(:album_11)
       result = no_vote_work.most_recent_vote_date
 
-      expect(result).must_be_nil
+      expect(result).must_equal dummy_date
     end
   end
 

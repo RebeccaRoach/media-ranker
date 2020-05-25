@@ -2,13 +2,9 @@ class WorksController < ApplicationController
   before_action :set_work, only: [:show, :edit, :update, :destroy]
 
   def index
-    # show all works by max votes and descending
-    # if a tie, most recent voted goes first
-    
     @books = Work.get_category("book")
     @movies = Work.get_category("movie")
     @albums = Work.get_category("album")
-   
   end
 
   def show
