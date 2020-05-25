@@ -1,0 +1,35 @@
+.top-ten__list-container {
+  // SOME MISSING STYLES for padding?????
+}
+
+.top-ten__header {
+  color: #26a69a;
+  border-bottom: 2px solid;
+  border-bottom-color: #b2dfdb;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.top-ten__list {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.list-group-item {
+  border: none;
+}
+
+.top-ten__creator {
+  color: slategrey;
+}

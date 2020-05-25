@@ -59,6 +59,8 @@
     </nav>
   </header>
 
+  <%# CONDITIONALLY RENDER THIS SECTION DEPENDING ON IF THERES A FLASH?????? %>
+
     <section class="alert__container">
       <% flash.each do |type, message| %>
         <% type = type.to_sym %>
@@ -83,7 +85,10 @@
       <% end %>
     </section>
 
-    <%= yield %>
-    
+    <main>
+
+      <%= yield %>
+
+    </main>
   </body>
 </html>

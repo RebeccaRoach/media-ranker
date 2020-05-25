@@ -17,6 +17,10 @@
 
 // ====== BODY & H TAGS ====> //
 
+main {
+  padding: 2rem;
+}
+
 body {
   margin: 0;
   font-size: 1rem;
@@ -127,18 +131,6 @@ small, .small {
 background-color: #00796b;
 color: white;
 }
-
-
-
-
-
-// +++  spotlight.scss ++++++++++++++++++++
-
-// .spotlight__header--prefix::after {
-//   content: ":";
-// }
-
-
 
 
 
