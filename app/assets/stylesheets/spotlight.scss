@@ -1,0 +1,23 @@
+.spotlight {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.spotlight__header {
+  color: #26a69a;
+}
+
+.spotlight__header--prefix {
+  color: #424242;
+}
+
+.spotlight__header--prefix::after {
+  content: ":";
+}
+
+.spotlight__link-to {
+  border-bottom: 2px solid;
+}
+
+.spotlight__description {
+  margin-bottom: 0;
+}
