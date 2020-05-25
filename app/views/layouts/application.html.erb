@@ -13,23 +13,23 @@
   <body>
     <header class="app-header__header">
       <h1>
-        <a href="/">Media Ranker</a>
+        <%= link_to 'Media Ranker', root_path %>
         <small>Ranking the Best of Everything</small>
       </h1>
 
       <nav class="app-header__nav">
         <ul class="nav app-header__site-nav-container">
           <li class="nav-item app-header__nav_item">
-            <a class="nav-link" href="/">View top media</a>
+            <%= link_to 'View top media', root_path, class: "nav-link" %>
           </li>
           <li class="nav-item app-header__nav_item">
-            <a class="nav-link" href="/works">View all media</a>
+            <%= link_to 'View all media', works_path, class: "nav-link" %>
           </li>
           <li class="nav-item app-header__nav_item">
-            <a class="nav-link" href="/works/new">Add a new work</a>
+            <%= link_to 'Add a new work', new_work_path, class: "nav-link" %>
           </li>
           <li class="nav-item app-header__nav_item">
-            <a class="nav-link" href="/users">View all users</a>
+            <%= link_to 'View all users', users_path, class: "nav-link" %>
           </li>
         </ul>
 
@@ -43,14 +43,14 @@
             </li>
           <% else %>
             <li class="nav-item app-header__nav_item" id="btn2">
-              <a class="btn btn-primary" href="/login">Log In</a>
+              <%= link_to 'Log In', login_path, class: "btn btn-primary" %>
             </li>
           <% end %>
 
           <%# Only display logout button if user is logged in: %>
           <% if session[:user_id] %>
             <li class="nav-item app-header__nav_item">
-              <a class="btn btn-primary" rel="nofollow" data-method="post" href="/logout">Log Out</a>
+              <%= link_to 'Log Out', logout_path, class: "btn btn-primary", method: :post %>
             </li>
           <% end %>
         </ul>
