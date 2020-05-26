@@ -58,13 +58,14 @@ class WorksController < ApplicationController
   end
 
   def upvote
-    if current_user.nil?
+    user = User.find_by(id: session[:user_id])
+    if user.nil?
       flash[:error] = "A problem occurred: You must log in to do that"
       redirect_to work_path(params[:id])
       return
     end
     # create a new vote for this user, for this work
-    vote = Vote.new(user_id: current_user.id, work_id: params[:id])
+    vote = Vote.new(user_id: user.id, work_id: params[:id])
 
     if vote.save
       flash[:success] = "Successfully upvoted!"
