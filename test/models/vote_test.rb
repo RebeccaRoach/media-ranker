@@ -95,7 +95,7 @@ describe Vote do
       result = attempted_vote.save
 
       expect(result).must_equal false
-      # expect(attempted_vote.errors.messages[:user]).must_include "has already voted for this work"
+      expect(attempted_vote.errors.messages[:user_id]).must_include "has already voted for this work"
       expect(works(:book_1).votes.count).must_equal previous_book_1_votes
     end
   end

@@ -1,26 +1,24 @@
 class Work < ApplicationRecord
   has_many :votes, dependent: :destroy
+  has_many :users, through: :votes
   
   validates :title, presence: true
   validates :category, presence: true
   validates_uniqueness_of :title, scope: :category, message: "has already been taken"
 
-  # has_many :users, through: :votes
-
-
-  def self.get_category(category_name)
+  def self.get_in_category_by_votes(category_name)
     valid_categories = ["album", "book", "movie"]
-    return nil if !valid_categories.include?(category_name)
+    raise ArgumentError.new("#{category_name} is not valid") if !valid_categories.include?(category_name)
 
     num_category_works = self.where(category: category_name).count
 
-    return self.where(category: category_name).max_by(num_category_works) {
+    return self.where(category: category_name).includes(:votes).max_by(num_category_works) {
       |work| work.votes.count
     }
   end
 
   def self.top_ten(category_name)
-    return self.get_category(category_name)[0..9]
+    return self.get_in_category_by_votes(category_name)[0..9]
   end
 
   def most_recent_vote_date

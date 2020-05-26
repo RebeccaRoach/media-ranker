@@ -34,11 +34,9 @@
         </ul>
 
         <ul class="nav app-header__site-nav-container">
-          <%# Can this be refactored to user current_user action and ternary?? %>
           <% if session[:user_id] %>
-            <% user = User.find_by(id: session[:user_id]) %>
+           <% user = User.find_by(id: session[:user_id]) %>
             <li class="nav-item app-header__nav_item" id="btn1">
-              <%# <%= link_to "Logged in as" user.user_name, root_path***, class: "btn btn-primary" %> 
               <a class="btn btn-primary" href="/users/<%= user.id %>">Logged in as <%= user.user_name %></a>
             </li>
           <% else %>

@@ -2,33 +2,24 @@ class WorksController < ApplicationController
   before_action :set_work, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Work.get_category("book")
-    @movies = Work.get_category("movie")
-    @albums = Work.get_category("album")
+    @books = Work.get_in_category_by_votes("book")
+    @movies = Work.get_in_category_by_votes("movie")
+    @albums = Work.get_in_category_by_votes("album")
   end
 
   def show
-    @work = Work.find(params[:id])
-
-    # need to be able to return all the users who voted for single work
-    # ordered by most recently voted on that work
-
     @users = []
     @work.votes.each do |vote|
       user = vote.user
       @users << user
     end
-
-    # check if i need this return
-    return [@work, @users]
   end
 
   def new
     @work = Work.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @work = Work.new(work_params)
@@ -55,7 +46,6 @@ class WorksController < ApplicationController
   end
 
   def destroy
-    @work = Work.find(params[:id])
     if @work.nil?
       redirect_to root_path, notice: 'Work not found'
       return
@@ -68,19 +58,13 @@ class WorksController < ApplicationController
   end
 
   def upvote
-    # get user_id from session
-    user = User.find_by(id: session[:user_id])
-    # ^^ equivalent to: user_id = session[:user_id] ???
-
-    # call User#current here
-    if user.nil?
-      # might need new structure below:
+    if current_user.nil?
       flash[:error] = "A problem occurred: You must log in to do that"
       redirect_to work_path(params[:id])
       return
     end
     # create a new vote for this user, for this work
-    vote = Vote.new(user_id: user.id, work_id: params[:id])
+    vote = Vote.new(user_id: current_user.id, work_id: params[:id])
 
     if vote.save
       flash[:success] = "Successfully upvoted!"
@@ -94,7 +78,6 @@ class WorksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_work
       @work = Work.find(params[:id])
     end

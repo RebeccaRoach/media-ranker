@@ -71,7 +71,6 @@ describe Work do
     end
 
     it 'can have many votes' do
-      # vote fixture contains votes related to works
       @book1.votes.each do |vote|
         expect(vote).must_be_kind_of Vote
         expect(vote.work).must_equal @book1
@@ -88,11 +87,11 @@ describe Work do
     end
   end
 
-  describe "Work#get_category" do
+  describe "Work#get_in_category_by_votes" do
 
     it "can get all of the works of a certain category" do
-      books_result = Work.get_category("book")
-      albums_result = Work.get_category("album")
+      books_result = Work.get_in_category_by_votes("book")
+      albums_result = Work.get_in_category_by_votes("album")
 
       books_result.each do |item|
         expect(item.category).must_equal "book"
@@ -110,7 +109,7 @@ describe Work do
       # from fixtures expect order:
       # book1 with 3 votes, book2 with 2 votes, book3 with 0 votes
 
-      result = Work.get_category("book")
+      result = Work.get_in_category_by_votes("book")
 
       expect(result.count).must_equal 3
 
@@ -124,14 +123,12 @@ describe Work do
       expect(result[2].votes.count).must_equal 0
     end
 
-    it "returns nil if category is invalid" do
-      invalid_result = Work.get_category("apricots")
-
-      expect(invalid_result).must_be_nil
+    it "raises ArgumentError if category is invalid" do
+      expect{Work.get_in_category_by_votes("apricots")}.must_raise ArgumentError
     end
 
     it "returns empty array if there are no works in a given category" do
-      empty_result = Work.get_category("movie")
+      empty_result = Work.get_in_category_by_votes("movie")
 
       expect(empty_result).must_equal []
     end
@@ -150,24 +147,15 @@ describe Work do
       expect(top_albums.count).must_equal 10
     end
 
-    it "can get the top ten works of a 64565464565646certain category ordered from most to least votes" do
-    #   # from fixtures expect order:
-    #   # 2 with 3 votes, #3 with 2 votes, #4 with 2 votes, #5 with 2 votes, then 1 vote each for #1, #6, #7, #8, #9, #10
+    it "can get the top ten works of a certain category ordered from most to least votes" do
 
       result = Work.top_ten("album")
 
       expect(result.count).must_equal 10
-      expect(result).wont_include works(:album_11)
-
       expect(result[0]).must_equal works(:album_2)
       expect(result[0].votes.count).must_equal 3
-      puts "RESULT 0:::::::::: #{result[0]}"
-
-      expect(result[1]).must_equal works(:album_3)
-      expect(result[1].votes.count).must_equal 2
-      puts "RESULT 1:::::::::: #{result[1]}"
-
       expect(result[9].votes.count).must_equal 1
+      expect(result).wont_include works(:album_11)
     end
 
     it "returns empty array if category has no works" do
@@ -225,24 +213,18 @@ describe Work do
     end
 
     it "returns the most recently upvoted work in the case of a tie for top work" do
-      # Fixtures have book_1 and album_3 each with 3 votes to begin
-      # set created_at values on book_1's votes to be in the past vs. album_2's votes created now
-      vote_1 = votes(:vote_1)
-      vote_1.created_at = "Fri, 22 May 2020 04:56:05 UTC +00:00"
-      puts "VOTE CREATED AT: ::::::::: #{vote_1.created_at}"
-      # puts "########"
+      # Fixtures have book_1 and album_2 each tied with 3 votes to begin
+      expect(works(:album_2).votes.count).must_equal works(:book_1).votes.count
 
-      # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_7).created_at}"
-      # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_16).created_at}"
-      # puts "ALBUM 2 CREATED AT::::::::: #{votes(:vote_17).created_at}"
-      # votes(:vote_2).created_at = "Fri, 22 May 2020 04:56:05 UTC +00:00"
-      # votes(:vote_3).created_at = "Fri, 22 May 2020 04:56:05 UTC +00:00"
-      # Fixtures.reload
+      # create a new vote for both works, waiting one second in between
+      Vote.create!(user: users(:penelope), work: works(:book_1))
+      sleep(1)
+      Vote.create!(user: users(:penelope), work: works(:album_2))
 
-      top_work_now = Work.spotlight
-      puts "VOTE STILLLLLL CREATED AT: ::::::::: #{vote_1.created_at}"
-      expect(top_work_now).must_be_kind_of Work
-      expect(top_work_now).must_equal works(:album_2)
+      top_work = Work.spotlight
+      expect(top_work).must_be_kind_of Work
+      expect(works(:album_2).votes.count).must_equal works(:book_1).votes.count
+      expect(top_work).must_equal works(:album_2)
     end
 
     it "returns the first work in the database if there are no votes on any works" do

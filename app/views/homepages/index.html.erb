@@ -1,7 +1,7 @@
 <%= render partial: '/works/spotlight', locals: { spotlight: Work.spotlight } %>
 <hr class="root__hr">
 <section class="top-ten__container">
-  <%= render partial: '/works/top_media', locals: { category: 'movie' } %>
-  <%= render partial: '/works/top_media', locals: { category: 'book' } %>
-  <%= render partial: '/works/top_media', locals: { category: 'album' } %>
+  <%= render partial: '/works/top_media', locals: { category: 'movie', works: @top_ten_movies } %>
+  <%= render partial: '/works/top_media', locals: { category: 'book', works: @top_ten_books } %>
+  <%= render partial: '/works/top_media', locals: { category: 'album', works: @top_ten_albums } %>
 </section>

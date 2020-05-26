@@ -1,4 +1,3 @@
-<%# WORK SHOW PAGE (SINGLE WORK) %>
 <section>
   <h2><%= @work.title %></h2>
   <p>Created by: <%= @work.creator %></p>
@@ -17,7 +16,7 @@
   </section>
 </section>
 <section class="works-votes__container">
-  <h3><%= @work.votes.count %> votes for this <%= @work.category %> </h3>
+  <h3 class="works-votes__header"><%= @work.votes.count %> Votes for this <%= @work.category.capitalize %> </h3>
   <table class="table">
     <thead>
       <tr>
